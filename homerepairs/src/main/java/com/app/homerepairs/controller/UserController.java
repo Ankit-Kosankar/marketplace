@@ -29,8 +29,8 @@ public class UserController {
 	
 	// save an user [CREATE]
 	@PostMapping("/add")
-	public ResponseEntity<?> addUser(@RequestBody AppUser appUser ) {
-		GeneralResponse user = appUserService.addUser(appUser);
+	public ResponseEntity<?> addUser(@RequestBody AppUserDTO appUserDTO) {
+		GeneralResponse user = appUserService.addUser(appUserDTO);
 		return ResponseEntity.ok(user);
 	}
 
@@ -39,6 +39,7 @@ public class UserController {
 	public ResponseEntity<?> getallUsers()
 	{
 		List<AppUser> allUsers = appUserService.getAllUsers();
+		
 		if(allUsers.isEmpty())
 		{
 			GeneralResponse genRes = 
@@ -77,8 +78,9 @@ public class UserController {
 	
 	//update the User [Delete]
 	@DeleteMapping("/delete")
-	public ResponseEntity<?> deleteUser(@RequestParam String name)
+	public ResponseEntity<?> deleteUser(@RequestParam String username)
 	{
+		appUserService.deleteByUsername(username);
 		return null;
 	}
 	

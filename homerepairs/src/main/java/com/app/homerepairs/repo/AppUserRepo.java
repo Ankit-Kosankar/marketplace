@@ -23,11 +23,13 @@ public interface AppUserRepo extends JpaRepository<AppUser, Long>
 	//user defined method
 	Optional<AppUser> findByUsername(String username);
 	
-	
-	//JPQL
-	@Query(value = "SELECT user_name,name  FROM user WHERE user_name = :username" , nativeQuery = true)
+	//Native Query [Not JPQL ->]
+	@Query(value = "SELECT username,name  FROM user WHERE username = :username" , nativeQuery = true)
 	List<Object[]> getUser(@Param("username") String username);
-	
-	
-	
+
+	Optional<AppUser> deleteByUsername(String username);
+
+	@Query(value = "SELECT COUNT(username) FROM user WHERE username =:username" , nativeQuery = true)
+	Long isUsernameExists(@Param("username") String username);
+
 }
